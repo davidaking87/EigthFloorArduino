@@ -5,6 +5,7 @@
 Adafruit_VL6180X sensor;
 
 void setup() {
+  Wire.begin(); // Should only be called once
   sensor.begin();
   Serial.begin(9600);
 }

@@ -1,0 +1,16 @@
+First sign:
+	PCDuino3 Nano
+		+ USB Cable 2.0
+	Battery pack (PravPower Element Series: External Battery Pack__model RP-PB07)
+	LinkSprite Motor Shield (101101014)
+	Ultrasonic (HC-SR04)
+Second sign:
+	Chassis ("Magician chassis-DG007")
+	3 Range sensors (VL6180X Distance Sensor)
+		part: http://adafru.it/3316
+		code: https://github.com/adafruit/Adafruit_VL6180X
+		actual sensor: http://www.st.com/content/st_com/en/products/imaging-and-photonics-solutions/proximity-sensors/vl6180x.html
+		might want to see:
+			https://forum.arduino.cc/index.php?topic=405671.0
+	Servo Motor
+	IMU (MPU-9250)

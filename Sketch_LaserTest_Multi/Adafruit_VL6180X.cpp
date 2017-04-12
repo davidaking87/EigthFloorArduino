@@ -37,7 +37,6 @@ Adafruit_VL6180X::Adafruit_VL6180X(void) {
 /**************************************************************************/
 boolean Adafruit_VL6180X::begin(void) {
   _i2caddr = VL6180X_DEFAULT_I2C_ADDR;
-  Wire.begin();
 
   if (read8(VL6180X_REG_IDENTIFICATION_MODEL_ID) != 0xB4) {
     return false;

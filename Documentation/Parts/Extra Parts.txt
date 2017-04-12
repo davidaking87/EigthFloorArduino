@@ -1,0 +1,7 @@
+Our own parts that we placed onto the bot:
+
+Cecil:
+	breadboard
+	command-hook velcro stuff
+Kevin:
+	jumper
