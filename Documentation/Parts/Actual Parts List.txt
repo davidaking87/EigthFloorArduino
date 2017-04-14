@@ -14,3 +14,4 @@ Second sign:
 			https://forum.arduino.cc/index.php?topic=405671.0
 	Servo Motor
 	IMU (MPU-9250)
+		tutorial (w/ datasheet, etc): https://learn.sparkfun.com/tutorials/mpu-9250-hookup-guide

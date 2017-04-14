@@ -1,0 +1,21 @@
+Wire Colors:
+	White/Red = Power
+	Black = Grnd
+	Blue = SCL
+	Green = SDA
+
+Motor Shield:
+	m1 = right wheel
+	m2 = left wheel
+
+Pins:
+	A4 & A5 (or SDA/SCL) = I2C
+	pin 2 = left laser
+	pin 3 = center laser
+	pin 4 = right laser
+	pin 5 = ultrasonic TRIG
+	pin 6 = ultrasonic ECHO
+	pin 13 = debug LED (builtin)
+
+misc notes:
+	PCduino's center of mass ~ pin J12

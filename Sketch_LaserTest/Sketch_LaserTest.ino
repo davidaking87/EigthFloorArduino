@@ -1,17 +1,25 @@
-// Site: http://arduino.stackexchange.com/questions/25050/multiple-vl6180x-distance-sensors-interactive-problem
-
+// Looking at the Wire library, it uses this stuff to printf()
+extern "C" {
+  #include <stdlib.h>
+  #include <stdio.h>
+  #include <string.h>
+  #include <inttypes.h>
+}
 #include "Adafruit_VL6180X.h"
 
 Adafruit_VL6180X sensor;
 
 void setup() {
-  Wire.begin(); // Should only be called once
+  printf("init start\n");
+  pinMode(13, OUTPUT);
   sensor.begin();
-  Serial.begin(9600);
+  printf("init done\n");
 }
 
+char str[] = {"255"}; // Holds max value laser can output
 void loop() {
-//  Serial.println(sensor.readReg(0x212),HEX);
-  Serial.println(sensor.readRange());
+  digitalWrite(13, HIGH);
+  printf("range: %d\n", sensor.readRange());
   delay(500);
+digitalWrite(13, LOW);
 }
