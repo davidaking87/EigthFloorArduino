@@ -1,3 +1,9 @@
+Tape Colors:
+	Red tape = battery pack power
+	White tape = Misc...
+		= battery pack GRND
+		= holding wires in place
+
 Wire Colors:
 	White/Red = Power
 	Black = Grnd
@@ -10,11 +16,12 @@ Motor Shield:
 
 Pins:
 	A4 & A5 (or SDA/SCL) = I2C
-	pin 2 = left laser
-	pin 3 = center laser
-	pin 4 = right laser
-	pin 5 = ultrasonic TRIG
-	pin 6 = ultrasonic ECHO
+	pin 1 = front laser (purple)
+	pin 2 = left laser (orange)
+	pin 3 = right laser (brown)
+	pin 4 = < BLANK > (purple, just to hold pin 3 in place)
+	pin 5 = ultrasonic TRIG?
+	pin 6 = ultrasonic ECHO?
 	pin 13 = debug LED (builtin)
 
 misc notes:

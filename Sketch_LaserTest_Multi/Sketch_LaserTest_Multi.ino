@@ -19,46 +19,48 @@ extern "C" {
 #include "Adafruit_VL6180X.h"
 
 Adafruit_VL6180X lasers;
-  byte laser1SHDNPin = 7; // SHutDowN pin
-  byte laser2SHDNPin = 6;
+  byte frontLaserSHDNPin = 1; // SHutDowN pin
+  byte leftLaserSHDNPin = 2;
+  byte rightLaserSHDNPin = 3;
 
 void setup() {
   printf("starting");
-  pinMode(laser1SHDNPin, OUTPUT);
-  pinMode(laser2SHDNPin, OUTPUT);
-  digitalWrite(laser1SHDNPin, LOW); // Disable laser1
-  digitalWrite(laser2SHDNPin, LOW); // Disable laser2
+  pinMode(frontLaserSHDNPin, OUTPUT);
+  pinMode(leftLaserSHDNPin, OUTPUT);
+  pinMode(rightLaserSHDNPin, OUTPUT);
+  digitalWrite(frontLaserSHDNPin, LOW); // Disable frontLaser
+  digitalWrite(leftLaserSHDNPin, LOW); // Disable leftLaser
+  digitalWrite(rightLaserSHDNPin, LOW); // Disable rightLaser
   
   Wire.begin();
-  /*
-   // Doesn't work
-  digitalWrite(laser2SHDNPin, LOW);  // Disable laser2 before...
-  digitalWrite(laser1SHDNPin, HIGH); // enabling laser1
-  /*
-  lasers.begin();
-  digitalWrite(laser1SHDNPin, LOW); // enabling laser1
-  digitalWrite(laser2SHDNPin, HIGH);  // Disable laser2 before...
-  lasers.begin();
-  */
 }
 
 void loop() {
-  printf("\tlooping");
+  printf("looping\n");
   // Enable laser 1
-  digitalWrite(laser1SHDNPin, HIGH); // enabling laser1
+  digitalWrite(frontLaserSHDNPin, HIGH); // enabling frontLaser
   // Print laser 1 value
   lasers.begin(); // Notice: every time laser is enabled, have to call begin()
   delay(1);
-  printf("laser1: %d\n", lasers.readRange());
-  digitalWrite(laser1SHDNPin, LOW);  // Disable laser1
-  delay(500);
+  printf("\tfrontLaser: %d\n", lasers.readRange());
+  digitalWrite(frontLaserSHDNPin, LOW);  // Disable frontLaser
+//  delay(500);
 
   // Enable laser 2
-  digitalWrite(laser2SHDNPin, HIGH); // enabling laser2
+  digitalWrite(leftLaserSHDNPin, HIGH); // enabling leftLaser
   // Print laser 2 value
   lasers.begin();
   delay(1);
-  printf("\tlaser2: %d\n", lasers.readRange());
-  digitalWrite(laser2SHDNPin, LOW);  // Disable laser2
+  printf("\tleftLaser: %d\n", lasers.readRange());
+  digitalWrite(leftLaserSHDNPin, LOW);  // Disable leftLaser
+//  delay(500);
+  
+  // Enable laser 3
+  digitalWrite(rightLaserSHDNPin, HIGH); // enabling rightLaser
+  // Print laser 3 value
+  lasers.begin();
+  delay(1);
+  printf("\trightLaser: %d\n", lasers.readRange());
+  digitalWrite(rightLaserSHDNPin, LOW);  // Disable rightLaser
   delay(500);
 }
