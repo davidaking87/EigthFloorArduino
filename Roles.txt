@@ -1,0 +1,17 @@
+Cecil:
+	map
+		- doubly linked list => graph
+		- A* / graph alg to find short path
+David:
+	reading offset & rotation from IMU
+Julio:
+	drive robot until it hits wall
+		- drive straight (self-configuration?)
+		- detect when drove fixed distance
+		- navigate corners
+Kevin:
+	misc... help stuff?
+		- Kalmann filter
+		- prioritized task list
+	Project Manage stuff???
+	
