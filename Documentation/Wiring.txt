@@ -19,9 +19,10 @@ Pins:
 	pin 1 = front laser (purple)
 	pin 2 = left laser (orange)
 	pin 3 = right laser (brown)
-	pin 4 = < BLANK > (purple, just to hold pin 3 in place)
-	pin 5 = ultrasonic TRIG?
-	pin 6 = ultrasonic ECHO?
+	pin 4 = ultrasonic TRIG?
+	pin 5 = ultrasonic ECHO?
+	pin 6 = left LED (grey)
+	pin 7 = right LED (purple)
 	pin 13 = debug LED (builtin)
 
 misc notes:

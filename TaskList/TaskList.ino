@@ -1,10 +1,11 @@
 #include "Task.h"
 
 void setup() {
+  addTask(Task.STOP);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  runCurrTask();
+  delay(100); // Wait a bit before printing more
 }
 
