@@ -1,0 +1,2 @@
+Apparently, Github recommends not uploading large files, like videos.
+So, videos are on the Slack instead.
