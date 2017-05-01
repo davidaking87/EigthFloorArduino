@@ -17,13 +17,10 @@ Motor Shield:
 Pins:
 	A4 & A5 (or SDA/SCL) = I2C
 	pin 1 = front laser (purple)
-	pin 2 = left laser (orange)
-	pin 3 = right laser (brown)
+	pin 2 = right laser (orange)
+	pin 3 = left laser (grey)
 	pin 4 = ultrasonic TRIG?
 	pin 5 = ultrasonic ECHO?
-	pin 6 = left LED (grey)
-	pin 7 = right LED (purple)
-	pin 13 = debug LED (builtin)
 
 misc notes:
 	PCduino's center of mass ~ pin J12
