@@ -3,5 +3,11 @@ Our own parts that we placed onto the bot:
 Cecil:
 	breadboard
 	command-hook velcro stuff
+David:
+	wires
+	battery pack
+Julio:
+	styrofoam + twist ties (laser mounts)
+	gorilla glue
 Kevin:
 	jumper
