@@ -1,0 +1,55 @@
+how to set program?
+1. Turn on PCDuino & run program via Arduino IDE.
+2. Stop program by closing the terminal window.
+3. Find where the compiled program is.
+	a) Run: sudo find / -name <sketch name here>.*
+	or b) Go to /tmp/build<long number here>.tmp
+			Note: This folder seems to be deleted when PCDuino isn't plugged into power anymore.
+				(If it's just turned off, it can keep files for a reboot)
+4. In this folder, run ls
+5. The different-colored file = executable.
+6. Copy this file to a permenant directory.
+	Now, you can run this whenever you want!
+
+To run at startup (if sd card is plugged in)...
+7. Open /home/ubuntu/autoRun.sh
+8. Find the if-block.
+9. Inside the if-block, call the program you just copied.
+	Note: You MUST use absolute filepaths.
+	ex: /home/ubuntu/mainDrive.o
+
+--------------------------
+
+so.. how to run program @ startup?
+1. Turn on the PCDuino & plug in the SD card.
+		The PCDuino should find the SD card.
+2. Turn off the PCDuino.
+3. The next time you reboot the PCDuino, it should run the program.
+	To check: The motor shield's lights will turn on...
+		But the screen will stay black.
+	b) If the program doesn't start (& PCDuino goes to the desktop),
+		you probably plugged in the SD card while the PCDuino was off.
+			Repeat step 2, and it should detect the SD card at the next bootup.
+4. To go back to the desktop, press Ctrl + C
+
+Note: After bootup, it will always create a log file @ /home/ubuntu/startupLog.txt
+
+To stop the program from running @ bootup:
+1. While the PCDuino is on, eject the SD card.
+2. Then unplug the SD card.
+		You should be all set.
+WARNING: If you unplug the SD card while the PCDuino is turned off,
+	it might run the program one more time @ startup.
+
+--------------------------
+
+Booting w/ program:
+	http://learn.linksprite.com/pcduino/quick-start/how-do-we-make-the-arduino-code-automatically-run-after-reboot/
+Debugging rc.local:
+	https://askubuntu.com/questions/434242/where-is-log-file-from-rc-local#434276
+
+Script
+------------
+if/else example: https://www.systemcodegeeks.com/shell-scripting/bash/bash-else-example/
+variables: http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-5.html
+Calling scripts: http://stackoverflow.com/questions/8352851/how-to-call-shell-script-from-another-shell-script#8352939
