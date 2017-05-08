@@ -1,0 +1,22 @@
+target audience: ppl who don't know this class
+	zip file due finals week (May 11, aka: thursday next week)
+
+Report: Group ID, name, members
+Introduction - What we're doing. (goal?)
+car: what's the requirements?
+	ex: car, sensor, software overview
+=> * challenges over course of project
+	ex: sensor inaccuracy?
+* algorithms & solutions to problems
+	technical description
+evaluation/results: How good does it work?
+lessons learned & conclusion
+	- what did we find in project?
+
+logistics: How to setup robot & run it?
+Need: Source code, how 2 compile (readme.txt)
+video URL of working robot
+	- "want a lot of pictures"
+		ex: state diagrams, how mounted robot
+who did what?
+	- "clear desc of division of work & completed tasks by each person"

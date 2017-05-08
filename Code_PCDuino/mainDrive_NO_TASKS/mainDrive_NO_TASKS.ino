@@ -17,7 +17,8 @@ extern "C" {
   #include <inttypes.h>
 }
 #include "Adafruit_VL6180X.h"
-#include "Task.h"
+
+//void readSensors();
 
 ///////////////////////////////////////////////
 
@@ -45,20 +46,20 @@ int temp_right;
 int temp_left;
   int prev_left;
 
-int INTERSECTION_CHANGE = 100; // If distance changes 100mm b/w readings, at intersection
+int INTERSECTION_CHANGE = 100;
 // Going really slowly, so delay = 5 seconds
-int MIN_INTERSECT_DELAY = 5100; // Min time to wait between intersections
-unsigned long prevIntersectTime = millis() -MIN_INTERSECT_DELAY; // Can detect intersection immediately
+int MIN_INTERSECT_DELAY = 5000; // Min time to wait between intersections
+int timeSinceIntersect = MIN_INTERSECT_DELAY;
 
 ///////////////////////////////////////////////
 
-void readSensors();
-bool keepAtLeft(bool hasInit);
-bool keepInCenter(bool hasInit);
+void delayUpdateTimers(int time) { // Update timers
+  delay(time);
+  if (timeSinceIntersect < MIN_INTERSECT_DELAY) // Stop int overflows
+    timeSinceIntersect += time;
+}
 
 ///////////////////////////////////////////////
-
-Task* currTask = Task::createTask(keepInCenter, NULL);
 
 void setup() {
   printf("starting");
@@ -76,8 +77,9 @@ void setup() {
   pinMode(rightIPin2, OUTPUT);
   pinMode(rightSpeedPin, OUTPUT);
   
-  stop();
-  Wire.begin(); // For lasers
+  forward(20,20);
+  Wire.begin();
+  
   readSensors(); // Called so that first readSensors() in loop() returns valid prev_front/left/right
 }
 
@@ -105,33 +107,6 @@ void stop() {
   digitalWrite(rightSpeedPin, LOW);
 }
 
-///////////////////////////////////////////////
-
-void loop() {
-  readSensors();
-  forward(SPEED, SPEED);
-  
-//  if(temp_front < 100){
-//    stop();
-//    delay(1000);
-//  }
-  
-//  else { // If front doesn't see the wall...
-    if (millis() -prevIntersectTime >= MIN_INTERSECT_DELAY &&
-        (temp_left - prev_left > INTERSECTION_CHANGE
-        || temp_right - prev_right > INTERSECTION_CHANGE)) {
-      stop();
-      prevIntersectTime = millis();
-      printf("At intersection\n");
-      delay(100);
-    } else {
-      currTask->runTask();
-    }
-//  }
-//  delay(50);
-}
-
-///////////////////////////////////////////////////
 
 // Adds 3ms delay
 void readSensors() {
@@ -140,10 +115,10 @@ void readSensors() {
   prev_right = temp_right;
   
   // Enable left laser
-  digitalWrite(leftLaserSHDNPin, HIGH); // ena bling leftLaser
+  digitalWrite(leftLaserSHDNPin, HIGH); // enabling leftLaser
   // Print left laser value
   lasers.begin();
-  delay(1);
+  delayUpdateTimers(1);
   temp_left = lasers.readRange();
   printf("\tleftLaser: %3d    ", temp_left);
   digitalWrite(leftLaserSHDNPin, LOW);  // Disable leftLaser
@@ -152,7 +127,7 @@ void readSensors() {
   digitalWrite(frontLaserSHDNPin, HIGH); // enabling frontLaser
   // Print front laser value
   lasers.begin(); // Notice: every time laser is enabled, have to call begin()
-  delay(1);
+  delayUpdateTimers(1);
   temp_front = lasers.readRange();
   printf("frontLaser: %3d    ", temp_front);
   digitalWrite(frontLaserSHDNPin, LOW);  // Disable frontLaser
@@ -161,60 +136,80 @@ void readSensors() {
   digitalWrite(rightLaserSHDNPin, HIGH); // enabling rightLaser
   // Print right laser value
   lasers.begin();
-  delay(1);
+  delayUpdateTimers(1);
   temp_right = lasers.readRange();
   printf("rightLaser: %3d\n", lasers.readRange());
   digitalWrite(rightLaserSHDNPin, LOW);  // Disable rightLaser
 }
 
-typedef enum {LASER_TOO_CLOSE, LASER_OK, LASER_TOO_FAR} laserState;
+///////////////////////////////////////////////
+
+void keepInCenter();
+void keepAtLeft();
+
+void loop() {
+  readSensors();
+  forward(SPEED, SPEED);
+  
+//  if(temp_front < 100){
+//    stop();
+//    delayUpdateTimers(1000);
+//  }
+  
+//  else { // If front doesn't see the wall...
+    if (timeSinceIntersect >= MIN_INTERSECT_DELAY &&
+        (temp_left - prev_left > INTERSECTION_CHANGE
+        || temp_right - prev_right > INTERSECTION_CHANGE)) {
+      stop();
+      printf("At intersection\n");
+      delayUpdateTimers(100);
+    } else {
+      keepInCenter();
+    }
+//  }
+//  delayUpdateTimers(50);
+}
+
+///////////////////////////////////////////////////
 
 /* Repeatedly call this function to stick to the left wall.
  */
-bool keepAtLeft(bool hasInit) {
+void keepAtLeft() {
   if(temp_left > 130){ // Too far from left, turn left
     analogWrite(leftSpeedPin,SPEED - correction);
-    delay(100);
+    delayUpdateTimers(100);
   }
   else if(temp_left < 70){ // Too close to left, turn right
     analogWrite(rightSpeedPin,SPEED - correction);
-    delay(100);
+    delayUpdateTimers(100);
   }
-  return false; // For now, never end task
 }
 
 /* Repeatedly call this function to stay at the center of the road.
  */
-bool keepInCenter(bool hasInit) {
-  if(temp_right < 80){ // Prev = 90
+void keepInCenter() {
+  if(temp_right < 120){ // Prev = 90
     analogWrite(leftSpeedPin,SPEED - correction);
-     printf("LeftMotor: %d \n", SPEED - correction);
-    delay(100);
+//    delayUpdateTimers(400);
+//    analogWrite(leftSpeedPin,SPEED);
+//    while(temp_front < 255){
+//      readSensors();      
+//    }
+//      printf("trightLaser: %d \n", SPEED);
+    delayUpdateTimers(100);
 //    analogWrite(leftSpeedPin,SPEED);
   }
-  else{
-      if(temp_right < 120){ // Prev = 90
-        analogWrite(leftSpeedPin,SPEED - correction/2);
-        printf("LeftMotor: %d \n", SPEED - correction/2);
-        delay(100);
-    //    analogWrite(leftSpeedPin,SPEED);
-      }
-  }
   
-  if(temp_left < 80){
+  if(temp_left < 120){
     analogWrite(rightSpeedPin,SPEED - correction);
-    printf("rightMotor: %d \n", SPEED - correction);
-    delay(100);
+    delayUpdateTimers(100);
+//    analogWrite(rightSpeedPin, SPEED);
+    
+//    while(temp_front < 255){
+//      readSensors();
+//    }
+//    printf("tr: %d \n", SPEED);
   }
-  else{
-    if(temp_left < 120){ 
-        analogWrite(rightSpeedPin,SPEED - correction/2);
-        printf("LeftMotor: %d \n", SPEED - correction/2);    
-        delay(100);
-    }
-  
-  }
-  return false; // For now, never end task
 }
 
 

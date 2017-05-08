@@ -6,8 +6,9 @@ Tape Colors:
 
 Wire Colors:
 	White/Red = Power
-	Black = Grnd
+	Black/Blue = Grnd
 	Blue = SCL
+		Yellow -> PCDuino = SCL also
 	Green = SDA
 
 Motor Shield:
@@ -19,8 +20,8 @@ Pins:
 	pin 1 = front laser (purple)
 	pin 2 = right laser (orange)
 	pin 3 = left laser (grey)
-	pin 4 = ultrasonic TRIG?
-	pin 5 = ultrasonic ECHO?
+	pin 5 = LED (orange)
+	pin 6 = LED (yellow)
 
 misc notes:
 	PCduino's center of mass ~ pin J12

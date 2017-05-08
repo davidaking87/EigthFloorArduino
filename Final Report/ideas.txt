@@ -1,0 +1,10 @@
+@ point to restart!
+PCDuino okay...
+	(I2C SOLID wire Julio put in)
+but need more INFO to work with!
+	=> more time for IMU, at LEAST 2 more lasers (side)
+		wheel encoders to correct rotation, etc
+motor shield INCORRECT! => get new shield
+
+not enough room to test? need more maps?
+more types of tools! ex: wood / drills... stuff to manufacture mounts, walls, etc

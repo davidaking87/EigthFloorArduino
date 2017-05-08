@@ -1,13 +1,22 @@
+#include <math.h>
+
+#define PI 3.14159264 
 // Motor1 = right, Motor2 = left
 
 int leftIPin1 = 12;
 int leftIPin2 = 13;
 int leftSpeedPin = 10; // enable motor A
-  boolean leftInvert = true;
+boolean leftInvert = true;
+
 int rightIPin1 = 8;
 int rightIPin2 = 11;
 int rightSpeedPin = 9; // Enable motor B
-  boolean rightInvert = false;
+boolean rightInvert = false;
+
+double mod_speed;
+int mod_speed_left;
+int mod_speed_right;
+int wave = 1;
 
 void setup() {
   pinMode(leftIPin1, OUTPUT);
@@ -16,8 +25,7 @@ void setup() {
   pinMode(rightIPin1, OUTPUT);
   pinMode(rightIPin2, OUTPUT);
   pinMode(rightSpeedPin, OUTPUT);
-  
-  stop();
+  forward(50,50);
 }
 
 ////////////////////////////
@@ -63,27 +71,21 @@ void stop() {
 
 //////////////////////////////
 
-int SPEED = 100;
+int SPEED = 30;
+//int dir = 10;
 
 void loop() {
-  forward(SPEED, SPEED);
-  delay(1000);
-  stop();
-  delay(1000);
   
-  backward(SPEED, SPEED);
-  delay(1000);
-  stop();
-  delay(1000);
+  mod_speed = SPEED + ( sin(wave * (PI / 180)) * 5) - 2;
+  mod_speed_right = (int)mod_speed;
+  mod_speed = SPEED + ( sin(wave * (PI / 180)) * 7);
+  mod_speed_left = (int)mod_speed;
+  analogWrite(leftSpeedPin,mod_speed_left);
+  analogWrite(rightSpeedPin, mod_speed_right);
+  printf("modspeed: %d \n",mod_speed_right);
+  delay(6);
   
-  left(SPEED, SPEED);
-  delay(1000);
-  stop();
-  delay(1000);
-  
-  right(SPEED, SPEED);
-  delay(1000);
-  stop();
-  delay(5000);
+  if(wave >= 360)
+     wave = 1;
+  wave += 4;
 }
-

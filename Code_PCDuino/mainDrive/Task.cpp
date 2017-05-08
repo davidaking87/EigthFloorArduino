@@ -22,6 +22,7 @@ void Task::deleteOneTask(Task* task) {
   if (task != NULL) {
     task->taskFunc = NULL;
     task->nextTask = NULL;
+    delete task;
   }
 }
 void Task::deleteAllTasks(Task* startTask) {
@@ -33,6 +34,9 @@ void Task::deleteAllTasks(Task* startTask) {
   }
 }
 
+Task* Task::getNextTask() {
+  return this->nextTask;
+}
 void Task::setNextTask(Task* nextTask) {
   this->nextTask = nextTask;
 }

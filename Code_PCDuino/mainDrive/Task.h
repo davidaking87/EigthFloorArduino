@@ -23,6 +23,7 @@ public:
   static void deleteOneTask(Task* task); // Only deletes task
   static void deleteAllTasks(Task* startTask); // Deletes task, and all Tasks that follow
   
+  Task* getNextTask();
   void setNextTask(Task* nextTask);
   void runTask();
   bool isDone();
