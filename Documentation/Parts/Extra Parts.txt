@@ -5,6 +5,7 @@ Cecil:
 	command-hook velcro stuff
 David:
 	wires
+	LEDs
 	battery pack
 Julio:
 	styrofoam + twist ties (laser mounts)
